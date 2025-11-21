@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDakcmPeDILvV03GywP4eBJzsfrCreq2PY",
@@ -11,5 +11,6 @@ const firebaseConfig = {
   measurementId: "G-8GRZHB8C6Y"
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase apenas se ainda não foi inicializado
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const db = getFirestore(app);
