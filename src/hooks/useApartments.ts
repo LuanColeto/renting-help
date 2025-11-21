@@ -5,7 +5,7 @@ import { Apartment } from '@/types/apartment';
 
 export function useApartments() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
