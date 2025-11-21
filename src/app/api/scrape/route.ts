@@ -44,7 +44,7 @@ function extractFromJsonLd(html: string, url: string): ScrapedData | null {
           // Extract address (can be string or object)
           if (typeof jsonData.address === 'string') {
             result.address = jsonData.address;
-            const parts = jsonData.address.split(',').map(p => p.trim());
+            const parts = jsonData.address.split(',').map((p: string) => p.trim());
 
             // Find the neighborhood - skip city/state and street numbers
             let neighborhoodIndex = -1;
@@ -67,7 +67,7 @@ function extractFromJsonLd(html: string, url: string): ScrapedData | null {
               result.neighborhood = parts[neighborhoodIndex];
             } else if (parts.length === 1) {
               // Try to extract from dash separator
-              const dashParts = parts[0].split('-').map(p => p.trim());
+              const dashParts = parts[0].split('-').map((p: string) => p.trim());
               if (dashParts.length >= 2) {
                 result.neighborhood = dashParts[dashParts.length - 1];
               }
