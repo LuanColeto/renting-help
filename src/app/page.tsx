@@ -690,52 +690,83 @@ export default function HomePage() {
                 {/* Filtro de Bairros */}
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-black mb-3">Bairros</h4>
-                  <div className="space-y-2 max-h-64 overflow-y-auto">
-                    {availableNeighborhoods.map(neighborhood => (
-                      <label
-                        key={neighborhood}
-                        className="flex items-center gap-2 cursor-pointer group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedNeighborhoods.includes(neighborhood)}
-                          onChange={() => handleNeighborhoodToggle(neighborhood)}
-                          className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black focus:ring-1"
-                        />
-                        <span className="text-sm text-gray-700 group-hover:text-black transition-colors">
-                          {neighborhood}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                  {availableNeighborhoods.length === 0 && (
-                    <p className="text-sm text-gray-500 italic">Nenhum bairro cadastrado</p>
+                  {loading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded flex-1 animate-pulse"></div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="space-y-2 max-h-64 overflow-y-auto">
+                        {availableNeighborhoods.map(neighborhood => (
+                          <label
+                            key={neighborhood}
+                            className="flex items-center gap-2 cursor-pointer group"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedNeighborhoods.includes(neighborhood)}
+                              onChange={() => handleNeighborhoodToggle(neighborhood)}
+                              className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black focus:ring-1"
+                            />
+                            <span className="text-sm text-gray-700 group-hover:text-black transition-colors">
+                              {neighborhood}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                      {availableNeighborhoods.length === 0 && (
+                        <p className="text-sm text-gray-500 italic">Nenhum bairro cadastrado</p>
+                      )}
+                    </>
                   )}
                 </div>
 
                 {/* Filtro de Faixa de Preço */}
                 <div className="border-t border-gray-200 pt-6">
                   <h4 className="text-sm font-semibold text-black mb-3">Faixa de Aluguel</h4>
-                  <div className="space-y-4">
-                    {/* Valores selecionados */}
-                    <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
-                      <div>
-                        <div className="text-xs text-gray-600 mb-0.5">Mínimo</div>
-                        <div className="text-sm font-semibold text-black">
-                          R$ {priceRange.min.toLocaleString('pt-BR')}
+                  {loading ? (
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
+                        <div className="flex-1">
+                          <div className="h-3 bg-gray-200 rounded w-12 mb-1 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-20 animate-pulse"></div>
+                        </div>
+                        <div className="h-5 bg-gray-200 rounded w-5 mx-2 animate-pulse"></div>
+                        <div className="flex-1 text-right">
+                          <div className="h-3 bg-gray-200 rounded w-12 mb-1 ml-auto animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-20 ml-auto animate-pulse"></div>
                         </div>
                       </div>
-                      <div className="text-gray-400">—</div>
-                      <div className="text-right">
-                        <div className="text-xs text-gray-600 mb-0.5">Máximo</div>
-                        <div className="text-sm font-semibold text-black">
-                          R$ {priceRange.max.toLocaleString('pt-BR')}
-                        </div>
+                      <div className="px-3 py-2">
+                        <div className="h-6 bg-gray-200 rounded-full animate-pulse"></div>
                       </div>
                     </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* Valores selecionados */}
+                      <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
+                        <div>
+                          <div className="text-xs text-gray-600 mb-0.5">Mínimo</div>
+                          <div className="text-sm font-semibold text-black">
+                            R$ {priceRange.min.toLocaleString('pt-BR')}
+                          </div>
+                        </div>
+                        <div className="text-gray-400">—</div>
+                        <div className="text-right">
+                          <div className="text-xs text-gray-600 mb-0.5">Máximo</div>
+                          <div className="text-sm font-semibold text-black">
+                            R$ {priceRange.max.toLocaleString('pt-BR')}
+                          </div>
+                        </div>
+                      </div>
 
-                    {/* MUI Range Slider */}
-                    <div className="px-3 py-2">
+                      {/* MUI Range Slider */}
+                      <div className="px-3 py-2">
                       <Slider
                         value={[priceRange.min, priceRange.max]}
                         onChange={(_, newValue) => {
@@ -788,16 +819,24 @@ export default function HomePage() {
                           },
                         }}
                       />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Resultados */}
                 <div className="border-t border-gray-200 pt-6 mt-6">
-                  <div className="bg-black text-white rounded-lg p-4 text-center">
-                    <div className="text-2xl font-semibold mb-1">{filteredApartments.length}</div>
-                    <div className="text-sm text-gray-300">apartamento{filteredApartments.length !== 1 ? 's' : ''} encontrado{filteredApartments.length !== 1 ? 's' : ''}</div>
-                  </div>
+                  {loading ? (
+                    <div className="bg-gray-100 rounded-lg p-4 text-center">
+                      <div className="h-8 bg-gray-200 rounded w-16 mx-auto mb-2 animate-pulse"></div>
+                      <div className="h-4 bg-gray-200 rounded w-32 mx-auto animate-pulse"></div>
+                    </div>
+                  ) : (
+                    <div className="bg-black text-white rounded-lg p-4 text-center">
+                      <div className="text-2xl font-semibold mb-1">{filteredApartments.length}</div>
+                      <div className="text-sm text-gray-300">apartamento{filteredApartments.length !== 1 ? 's' : ''} encontrado{filteredApartments.length !== 1 ? 's' : ''}</div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -805,11 +844,75 @@ export default function HomePage() {
 
           {/* Grade de Apartamentos */}
           <div className="flex-1">
-            <div
-              key={`${activeFilter}-${selectedNeighborhoods.join(',')}-${priceRange.min}-${priceRange.max}`}
-              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-            >
-              {filteredApartments.map((apartment, index) => {
+            {loading ? (
+              // Skeleton Loading
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {/* Skeleton Image */}
+                    <div className="h-48 bg-gray-200 animate-pulse"></div>
+
+                    {/* Skeleton Content */}
+                    <div className="p-6">
+                      {/* Title and badge */}
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="h-6 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+                        </div>
+                        <div className="ml-4">
+                          <div className="h-8 w-8 bg-gray-200 rounded-full animate-pulse"></div>
+                        </div>
+                      </div>
+
+                      {/* Address */}
+                      <div className="space-y-3 mb-5">
+                        <div className="flex items-start gap-2">
+                          <div className="h-4 w-4 bg-gray-200 rounded mt-0.5 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded flex-1 animate-pulse"></div>
+                        </div>
+
+                        {/* Price details */}
+                        <div className="pt-3 border-t border-gray-100">
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between items-center">
+                              <div className="h-4 bg-gray-200 rounded w-16 animate-pulse"></div>
+                              <div className="h-4 bg-gray-200 rounded w-20 animate-pulse"></div>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <div className="h-4 bg-gray-200 rounded w-20 animate-pulse"></div>
+                              <div className="h-4 bg-gray-200 rounded w-20 animate-pulse"></div>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <div className="h-4 bg-gray-200 rounded w-12 animate-pulse"></div>
+                              <div className="h-4 bg-gray-200 rounded w-16 animate-pulse"></div>
+                            </div>
+                            <div className="flex justify-between items-center border-t border-gray-200 pt-2 mt-2">
+                              <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                              <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action button */}
+                      <div className="space-y-2">
+                        <div className="h-[42px] bg-gray-200 rounded-lg w-full animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                key={`${activeFilter}-${selectedNeighborhoods.join(',')}-${priceRange.min}-${priceRange.max}`}
+                className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+              >
+                {filteredApartments.map((apartment, index) => {
                 const upcomingVisit = getUpcomingVisit(apartment.id!);
                 return (
                   <div
@@ -978,7 +1081,8 @@ export default function HomePage() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            )}
 
             {filteredApartments.length === 0 && !loading && (
               <div className="text-center py-20">
