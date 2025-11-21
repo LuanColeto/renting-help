@@ -12,6 +12,7 @@ Aplicação web moderna para gerenciar sua busca por apartamentos para alugar de
 - 💰 **Cálculo Automático**: Veja o custo total mensal incluindo todas as taxas
 - 🎨 **Interface Moderna**: Design clean e responsivo com animações suaves
 - ⚡ **Skeleton Loading**: Feedback visual durante carregamento de dados
+- 📱 **Mobile First**: Interface totalmente otimizada para dispositivos móveis
 
 ## 🛠️ Tecnologias
 
