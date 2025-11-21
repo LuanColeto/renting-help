@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   description: "Gerencie suas buscas de apartamentos para alugar de forma simples e organizada",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#000000',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
