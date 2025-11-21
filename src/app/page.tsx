@@ -597,7 +597,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-2">ALUGUEL</label>
                     <input
@@ -620,9 +620,6 @@ export default function HomePage() {
                       required
                     />
                   </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-2">IPTU</label>
                     <input
@@ -694,35 +691,42 @@ export default function HomePage() {
 
         {/* Layout with Sidebar and Content */}
         <div className="flex gap-6">
-          {/* Sidebar de Filtros - Desktop */}
+          {/* Sidebar de Filtros */}
           {showFilters && (
-            <>
-              {/* Mobile Filter Modal */}
-              <div className="sm:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowFilters(false)}>
-                <div className="bg-white h-full w-4/5 max-w-sm overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center gap-2">
-                        <Filter className="w-5 h-5 text-black" strokeWidth={2} />
-                        <h3 className="text-lg font-semibold text-black">Filtros</h3>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        {hasActiveFilters && (
-                          <button
-                            onClick={clearAllFilters}
-                            className="text-xs text-gray-600 hover:text-black transition-colors font-medium"
-                          >
-                            Limpar
-                          </button>
-                        )}
-                        <button
-                          onClick={() => setShowFilters(false)}
-                          className="text-gray-400 hover:text-gray-600"
-                        >
-                          <X className="w-5 h-5" strokeWidth={2} />
-                        </button>
-                      </div>
+            <div className={`${
+              // Mobile: modal overlay
+              'sm:relative sm:w-72 sm:flex-shrink-0 ' +
+              'fixed inset-0 z-50 sm:z-auto bg-black/50 sm:bg-transparent'
+            }`} onClick={(e) => {
+              // Close on mobile when clicking overlay
+              if (window.innerWidth < 640 && e.target === e.currentTarget) {
+                setShowFilters(false);
+              }
+            }}>
+              <div className="bg-white h-full w-4/5 max-w-sm sm:w-full sm:max-w-none overflow-y-auto sm:rounded-xl sm:border sm:border-gray-200 sm:sticky sm:top-8" onClick={(e) => e.stopPropagation()}>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <Filter className="w-5 h-5 text-black" strokeWidth={2} />
+                      <h3 className="text-lg font-semibold text-black">Filtros</h3>
                     </div>
+                    <div className="flex items-center gap-3">
+                      {hasActiveFilters && (
+                        <button
+                          onClick={clearAllFilters}
+                          className="text-xs text-gray-600 hover:text-black transition-colors font-medium"
+                        >
+                          Limpar
+                        </button>
+                      )}
+                      <button
+                        onClick={() => setShowFilters(false)}
+                        className="sm:hidden text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-5 h-5" strokeWidth={2} />
+                      </button>
+                    </div>
+                  </div>
 
                 {/* Filtro de Bairros */}
                 <div className="mb-6">
@@ -875,33 +879,9 @@ export default function HomePage() {
                     </div>
                   )}
                 </div>
-                  </div>
                 </div>
               </div>
-
-              {/* Desktop Sidebar */}
-              <div className="hidden sm:block w-72 flex-shrink-0">
-                <div className="bg-white border border-gray-200 rounded-xl p-6 sticky top-8 overflow-hidden">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2">
-                      <Filter className="w-5 h-5 text-black" strokeWidth={2} />
-                      <h3 className="text-lg font-semibold text-black">Filtros</h3>
-                    </div>
-                    {hasActiveFilters && (
-                      <button
-                        onClick={clearAllFilters}
-                        className="text-xs text-gray-600 hover:text-black transition-colors font-medium"
-                      >
-                        Limpar
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Content will be the same as mobile - we need to extract this */}
-                  {/* For now, keeping the existing structure */}
-                </div>
-              </div>
-            </>
+            </div>
           )}
 
           {/* Grade de Apartamentos */}
