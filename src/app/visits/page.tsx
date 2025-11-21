@@ -139,40 +139,40 @@ export default function VisitsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <Calendar className="w-8 h-8 text-black" strokeWidth={1.5} />
-            <h1 className="text-3xl font-light text-black tracking-tight">Visitas Agendadas</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-black" strokeWidth={1.5} />
+            <h1 className="text-xl sm:text-3xl font-light text-black tracking-tight">Visitas</h1>
           </div>
           <Link
             href="/"
-            className="flex items-center gap-2 bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
+            className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 text-gray-700 px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg hover:bg-gray-200 transition-colors text-xs sm:text-sm font-medium"
           >
             <HomeIcon className="w-4 h-4" strokeWidth={2} />
-            Apartamentos
+            <span className="hidden sm:inline">Apartamentos</span>
           </Link>
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-black text-white rounded-xl p-5">
-            <div className="text-3xl font-semibold mb-1">{stats.total}</div>
-            <div className="text-sm text-gray-300">Total de visitas</div>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
+          <div className="bg-black text-white rounded-xl p-3 sm:p-5">
+            <div className="text-xl sm:text-3xl font-semibold mb-1">{stats.total}</div>
+            <div className="text-xs sm:text-sm text-gray-300">Total</div>
           </div>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-            <div className="text-3xl font-semibold mb-1 text-black">{stats.upcoming}</div>
-            <div className="text-sm text-gray-600">Próximas visitas</div>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-3 sm:p-5">
+            <div className="text-xl sm:text-3xl font-semibold mb-1 text-black">{stats.upcoming}</div>
+            <div className="text-xs sm:text-sm text-gray-600">Próximas</div>
           </div>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-            <div className="text-3xl font-semibold mb-1 text-black">{stats.thisWeek}</div>
-            <div className="text-sm text-gray-600">Esta semana</div>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-3 sm:p-5">
+            <div className="text-xl sm:text-3xl font-semibold mb-1 text-black">{stats.thisWeek}</div>
+            <div className="text-xs sm:text-sm text-gray-600">Esta semana</div>
           </div>
         </div>
 
         {/* Filter Tabs */}
         <div className="mb-6 border-b border-gray-200">
-          <div className="flex gap-8">
+          <div className="flex gap-4 sm:gap-8 overflow-x-auto pb-0.5">
             <button
               onClick={() => setViewMode('upcoming')}
               className={`pb-4 px-1 border-b-2 transition-colors whitespace-nowrap ${
@@ -235,7 +235,7 @@ export default function VisitsPage() {
         </div>
 
         {/* Week Grid */}
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-7 gap-4">
           {weekDays.map((day, index) => {
             const dateStr = day.toISOString().split('T')[0];
             const dayVisits = visitsByDay[dateStr] || [];
