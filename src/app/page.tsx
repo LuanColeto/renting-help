@@ -150,7 +150,6 @@ export default function HomePage() {
         iptu: Number(formData.iptu),
         insurance: formData.insurance ? Number(formData.insurance) : undefined,
         visited: formData.visited,
-        interested: formData.interested,
         discarded: formData.discarded,
         notes: formData.notes,
         images: formData.images.length > 0 ? formData.images : undefined,
@@ -1013,11 +1012,6 @@ export default function HomePage() {
                     {apartment.visited && (
                       <div className="p-1.5 bg-blue-50 rounded-lg" title="Visitado">
                         <Eye className="w-3.5 h-3.5 text-blue-600" strokeWidth={2} />
-                      </div>
-                    )}
-                    {apartment.interested && (
-                      <div className="p-1.5 bg-emerald-50 rounded-lg" title="Interessado">
-                        <Heart className="w-3.5 h-3.5 text-emerald-600" strokeWidth={2} />
                       </div>
                     )}
                     {apartment.discarded && (
