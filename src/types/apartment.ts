@@ -8,9 +8,10 @@ export interface Apartment {
   iptu: number;
   insurance?: number;
   visited: boolean;
-  interested: boolean;
   discarded: boolean;
   notes?: string;
+  images?: string[];
+  url?: string;
   createdAt: Date;
   updatedAt: Date;
 }
